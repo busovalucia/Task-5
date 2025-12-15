@@ -1,0 +1,87 @@
+---
+title: "Task 5"
+author: "BusovaLucia"
+date: "2025-12-15"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+## TASK 5: Visualising Your Universe (Base R & ggplot2)
+
+# Load required libraries
+library(ggplot2)
+library(dplyr)
+
+# Load dataset
+data(midwest)
+
+```
+```{r}
+### 5.1. The Quick Sketch (Base R Histogram)
+# Distribution of total population across counties
+
+hist(midwest$poptotal,
+     main = "Distribution of Total Population in Midwest Counties",
+     xlab = "Total Population",
+     col = "lightblue",
+     border = "white")
+
+```
+```{r}
+### 5.2. The Relationship Map (ggplot2 Scatter Plot)
+# Relationship between total population and area
+
+ggplot(data = midwest, aes(x = area, y = poptotal)) +
+  geom_point(alpha = 0.6, size = 2, colour = "blue") +
+  geom_smooth(color = "gray", se = FALSE) +
+  labs(
+    title = "Total Population vs Area of Counties",
+    x = "Area (square miles)",
+    y = "Total Population"
+  ) +
+  theme_minimal()
+
+```
+```{r}
+### 5.3. The Comparison (ggplot2 Boxplot)
+# Comparison of total population by state
+
+ggplot(data = midwest, aes(x = state, y = poptotal, fill = state)) +
+  geom_boxplot() +
+  labs(
+    title = "Comparison of County Population by State",
+    x = "State",
+    y = "Total Population"
+  ) +
+  theme_light() +
+  theme(legend.position = "none")
+```
+```{r}
+### 5.4. The Deep Dive (Faceting)
+# Distribution of total population split by state
+
+ggplot(data = midwest, aes(x = poptotal)) +
+  geom_histogram(bins = 15, fill = "coral", color = "black") +
+  facet_wrap(~ state) +
+  labs(
+    title = "Distribution of County Population by State",
+    x = "Total Population",
+    y = "Count"
+  )
+```
+```{r}
+### 5.5. Final Step: Exporting the Plot
+# Save the last plot to project folder
+
+ggsave("midwest_population_distribution.png", width = 8, height = 6)
+```
+
+
+
+
+
+
